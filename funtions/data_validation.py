@@ -11,7 +11,7 @@ column_types = {
     'City': str,
     'Latitude': float,
     'Longitude': float,
-    'Date': pd.Timestamp,
+    'WeatherDate': pd.Timestamp,
     'Weather_Code': int,
     'Max_Temperature_C': float,
     'Min_Temperature_C': float,
@@ -75,7 +75,7 @@ class DataValidation:
 
 def check_dataframe(df,output_path,cur_time):
     # Rename columns for better readability
-    df.columns = ['City', 'Latitude', 'Longitude', 'Date', 'Weather_Code', 'Max_Temperature_C', 'Min_Temperature_C',
+    df.columns = ['City', 'Latitude', 'Longitude', 'WeatherDate', 'Weather_Code', 'Max_Temperature_C', 'Min_Temperature_C',
                   'Mean_Temperature_C', 'Max_Apparent_Temperature_C', 'Min_Apparent_Temperature_C',
                   'Mean_Apparent_Temperature_C', 'Sunrise', 'Sunset', 'Daylight_Duration_s', 'Sunshine_Duration_s',
                   'Precipitation_mm', 'Rain_mm', 'Snowfall_cm', 'Precipitation_Hours', 'Max_Wind_Speed_kmh',
@@ -83,7 +83,7 @@ def check_dataframe(df,output_path,cur_time):
                   'Evapotranspiration_mm']
     # Data Cleaning
     # Convert time columns to datetime type
-    time_columns = ['Date', 'Sunrise', 'Sunset']
+    time_columns = ['WeatherDate', 'Sunrise', 'Sunset']
     for col in time_columns:
         df[col] = pd.to_datetime(df[col])
 

@@ -24,7 +24,7 @@ def handler():
         for city in cities:
             df = pd.DataFrame()
             latitude, longitude = data_extraction.get_lat_long(city)
-            reponse = data_extraction.data_import_weather_reponse(latitude, longitude,"2024-01-01","2024-02-21")
+            reponse = data_extraction.data_import_weather_response(latitude, longitude,"2024-01-01","2024-02-21")
             df = data_extraction.data_import_weather(reponse)
             df.insert(0,"city",city)
             df.insert(1,"Latitude",latitude)

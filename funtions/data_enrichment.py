@@ -12,7 +12,7 @@ def enrich_data(df):
     df['Temperature_Range_C'] = df['Max_Temperature_C'] - df['Min_Temperature_C']
 
     # Convert time columns to datetime type
-    time_columns = ['Date', 'Sunrise', 'Sunset']
+    time_columns = ['WeatherDate', 'Sunrise', 'Sunset']
     for col in time_columns:
         df[col] = df[col].astype(str)
 

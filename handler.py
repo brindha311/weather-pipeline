@@ -1,10 +1,8 @@
-import json
-import csv
 import os
 import logging
 import pandas as pd
 import time
-from funtions import data_extraction, file_process, data_validation, data_enrichment
+from funtions import data_extraction, file_process, data_validation, data_enrichment, db_connections, usecase
 
 logging.basicConfig(filename='logfile.log', level=logging.DEBUG)
 
@@ -60,6 +58,9 @@ def handler():
 
             file_process.file_create_append(final_file_path_csv, df)
             file_process.file_create_append(final_file_path_json, df, False)
+            df.to_sql(name="WeatherData", con=db_connections.database_connection(), index=False,
+                               if_exists='append')
+
             print(
                 f"{city}: Latitude = {latitude}, Longitude = {longitude} has data {len(df)}"
                 f" loaded successfully in the path csv {final_file_path_csv} and json {final_file_path_json}")
@@ -67,7 +68,14 @@ def handler():
                 f"{city}: Latitude = {latitude}, Longitude = {longitude} has data {len(df)}"
                 f" loaded successfully in the path csv {final_file_path_csv} and json {final_file_path_json}")
 
+        uc1_df = usecase.usecase_1()
+        usecase1_path = os.path.join(script_dir, 'load_usecase')
+        usecase1_path_csv = os.path.join(usecase1_path, f"usecase1_{cur_time}.csv")
+        usecase1_path_json = os.path.join(usecase1_path, f"usecase1_{cur_time}.json")
 
+
+        file_process.file_create_append(usecase1_path_csv, uc1_df)
+        file_process.file_create_append(usecase1_path_json, uc1_df, False)
 
     except Exception as e:
         logging.error(f"An unexpected error occurred in the main block: {e}")

@@ -4,7 +4,7 @@ import requests
 from geopy.geocoders import Nominatim
 
 
-def data_import_weather_reponse(latitude, longitude, start_date, end_date):
+def data_import_weather_response(latitude, longitude, start_date, end_date):
     try:
         url = "https://archive-api.open-meteo.com/v1/archive"
         params = {

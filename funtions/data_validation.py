@@ -54,12 +54,6 @@ class DataValidation:
     def validate_value(self, column, valid_values):
         return self.data[~self.data[column].isin(valid_values)]
 
-    def check_consistency(self, column1, column2):
-        return self.data[self.data[column1] > self.data[column2]]
-
-    def custom_validation(self, validation_function):
-        return self.data[self.data.apply(validation_function, axis=1)]
-
     def ensure_one_column_max(self, column1, column2):
         """
         Ensure that column1 always has a value greater than or equal to column2.
@@ -68,7 +62,6 @@ class DataValidation:
         invalid_rows = self.data[self.data[column1] < self.data[column2]]
         self.data.loc[invalid_rows.index, [column1, column2]] = self.data.loc[invalid_rows.index, [column2, column1]].values
         return invalid_rows
-
 
     def check_duplicates(self, subset=None):
         duplicates = self.data[self.data.duplicated(subset=subset, keep='first')]
